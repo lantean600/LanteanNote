@@ -1,28 +1,28 @@
-show_downloads: true
-
 # 网站基本信息
 title: LanteanNote | Notes-Organized
 description: 一个持续进化的个人知识库。旨在系统性地承载与联结个人的思考、学习和实践经验，使其随时间积累价值。
 author: "lantean"
 email: "614625562@qq.com"
 
-# URL 设置
-baseurl: ""  # 如果项目在子路径，填写子路径名
-url: "https://github.com/lantean600/LanteanNote.github.io"  # 你的域名
+show_downloads: true
 
-# 构建设置
-markdown: kramdown  # Markdown 解析器
-permalink: pretty   # 链接格式
-timezone: Asia/Shanghai  # 时区
+# # URL 设置
+# baseurl: ""  # 如果项目在子路径，填写子路径名
+# url: "https://github.com/lantean600/LanteanNote.github.io"  # 你的域名
 
-# 主题设置
-theme: jekyll-theme-architect 
+# # 构建设置
+# markdown: kramdown  # Markdown 解析器
+# permalink: pretty   # 链接格式
+# timezone: Asia/Shanghai  # 时区
 
-# 插件（GitHub Pages 默认支持）
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
+# # 主题设置
+# theme: jekyll-theme-architect 
 
-# 自定义变量
-github_username: lantean600
-# twitter_username:
+# # 插件（GitHub Pages 默认支持）
+# plugins:
+#   - jekyll-feed
+#   - jekyll-seo-tag
+
+# # 自定义变量
+# github_username: lantean600
+# # twitter_username:
