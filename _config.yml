@@ -16,7 +16,8 @@ show_downloads: true
 # timezone: Asia/Shanghai  # 时区
 
 # 主题设置
-theme: jekyll-theme-architect 
+theme: tactile
+# jekyll-theme-architect 
 
 # # 插件（GitHub Pages 默认支持）
 # plugins:
