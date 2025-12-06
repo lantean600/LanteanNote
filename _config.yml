@@ -16,7 +16,8 @@ show_downloads: true
 # timezone: Asia/Shanghai  # 时区
 
 # 主题设置
-theme: jekyll-theme-architect 
+theme: jekyll-theme-midnight
+# jekyll-theme-architect 
 # jekyll-theme-cayman  
 
 # # 插件（GitHub Pages 默认支持）
