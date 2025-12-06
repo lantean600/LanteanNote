@@ -1,131 +1,38 @@
 ---
-layout: default  <!-- 关键：继承主题的默认布局 -->
+layout: default
 ---
 
-<!-- 顶部导航栏 -->
-<div class="nav-bar" style="
-    background: #f5f5f5;
-    padding: 12px;
-    margin: -20px -20px 20px -20px;
-    border-radius: 0;
-">
-    <a href="javascript:history.back()" style="
-        margin-right: 15px;
-        text-decoration: none;
-        color: #0366d6;
-        font-weight: bold;
-    ">← 返回</a>
-    <a href="https://lantean600.github.io/LanteanNote.github.io/" style="
-        text-decoration: none;
-        color: #0366d6;
-    ">🏠 首页</a>
-</div>
+{{ content }}
 
-<!-- 文章内容 -->
-<article>
-    <h1>{{ page.title }}</h1>
-    {{ content }}
-</article>
-
-<!-- 底部按钮 -->
-<hr style="margin: 40px 0;">
-<div style="text-align: center; margin-bottom: 40px;">
-    <a href="javascript:history.back()" style="
-        display: inline-block;
-        padding: 10px 20px;
-        background: #4CAF50;
+<div style="text-align: center; margin: 40px 0; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+    <button onclick="history.back()" style="
+        padding: 12px 24px;
+        background: #007bff;
         color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: background 0.3s;
-    " onmouseover="this.style.background='#45a049'" 
-       onmouseout="this.style.background='#4CAF50'">
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 5px;
+    ">
         ← 返回上一页
+    </button>
+    <a href="https://lantean600.github.io/LanteanNote.github.io/" style="
+        padding: 12px 24px;
+        background: #6c757d;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        margin: 5px;
+        display: inline-block;
+    ">
+        🏠 返回首页
     </a>
 </div>
 
-<!-- 浮动返回按钮 -->
-<div id="floating-back-btn" style="
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #ff6b6b;
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 50px;
-    font-size: 22px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    z-index: 1000;
-    display: none;  <!-- 默认隐藏，JS控制显示 -->
-">←</div>
-
 <script>
-// 浮动按钮控制：滚动时显示
-window.addEventListener('scroll', function() {
-    const btn = document.getElementById('floating-back-btn');
-    if (window.scrollY > 300) {
-        btn.style.display = 'flex';
-    } else {
-        btn.style.display = 'none';
-    }
-});
-
-// 点击浮动按钮返回
-document.getElementById('floating-back-btn').onclick = function() {
-    history.back();
-};
-
-// 键盘快捷键
+// 最简单的返回功能
 document.addEventListener('keydown', function(e) {
-    // B键返回上一页
-    if (e.key === 'b' || e.key === 'B') {
-        history.back();
-    }
-    // ESC键返回
-    if (e.key === 'Escape') {
-        history.back();
-    }
-    // 左箭头键返回
-    if (e.key === 'ArrowLeft' && (e.altKey || e.metaKey)) {
-        history.back();
-    }
-});
-
-// 移动端滑动返回
-let touchStartX = 0;
-document.addEventListener('touchstart', function(e) {
-    touchStartX = e.touches[0].clientX;
-});
-document.addEventListener('touchend', function(e) {
-    const touchEndX = e.changedTouches[0].clientX;
-    // 从左向右滑动超过100px
-    if (touchStartX - touchEndX > 100) {
-        history.back();
-    }
+    if (e.key === 'Escape') history.back();
 });
 </script>
-
-<!-- 确保主题样式不被覆盖 -->
-<style>
-/* 只添加必要的样式，不覆盖主题 */
-.nav-bar {
-    /* 样式已经在行内定义了 */
-}
-.back-btn {
-    /* 样式已经在行内定义了 */
-}
-
-/* 确保文章内容不受影响 */
-article {
-    margin-top: 20px;
-}
-article h1 {
-    margin-top: 0;
-    padding-top: 0;
-}
-</style>
