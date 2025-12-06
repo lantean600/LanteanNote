@@ -1,131 +1,52 @@
----
-layout: default
----
-
-<!-- 继承 Architect 主题的所有样式 -->
-<div class="wrapper">
-  <!-- 主题的页头部分 -->
-  <header>
-    {% if site.logo %}
-      <h1><a href="{{ "/" | absolute_url }}"><img src="{{ site.logo | absolute_url }}" alt="{{ site.title }}"></a></h1>
-    {% else %}
-      <h1><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
-    {% endif %}
-    
-    <!-- 添加返回按钮到页头 -->
-    <div style="margin-top: 15px;">
-      <a href="javascript:history.back()" class="btn" style="
-          display: inline-block;
-          padding: 8px 16px;
-          background: #2a7ae2;
-          color: white;
-          text-decoration: none;
-          border-radius: 3px;
-          font-size: 14px;
-          margin-right: 10px;
-      ">
-        ← 返回
-      </a>
-      <a href="https://lantean600.github.io/LanteanNote.github.io/" class="btn">🏠 首页</a>
-    </div>
-    
-    {% if site.email %}
-      <p class="email">{{ site.email }}</p>
-    {% endif %}
-  </header>
-
-  <!-- 主题的内容区域 -->
-  <section>
-    <h1>{{ page.title }}</h1>
-    
-    <!-- 显示笔记内容 -->
-    {{ content }}
-    
-    <!-- 底部返回按钮 -->
-    <div style="
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid #e8e8e8;
-        text-align: center;
-    ">
-      <a href="javascript:history.back()" class="btn" style="
-          background: #2a7ae2;
-          color: white;
-          padding: 10px 20px;
-          font-size: 16px;
-      ">
-        ← 返回上一页
-      </a>
-    </div>
-  </section>
-
-  <footer>
-    <!-- 主题的页脚 -->
-    {% if site.github.is_project_page %}
-      <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
-    {% endif %}
-    
-    {% if site.github.is_user_page %}
-      <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
-    {% endif %}
-  </footer>
-</div>
-
-<!-- 浮动返回按钮 -->
-<div id="floating-back" style="
+<!-- Architect主题专用返回组件 -->
+<style>
+/* 不覆盖主题样式 */
+#architect-back-btn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 25px;
+    right: 25px;
+    width: 46px;
+    height: 46px;
     background: #2a7ae2;
     color: white;
-    width: 50px;
-    height: 50px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    text-align: center;
+    line-height: 46px;
+    font-size: 18px;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(42, 122, 226, 0.3);
-    z-index: 1000;
+    box-shadow: 0 3px 8px rgba(42, 122, 226, 0.4);
+    z-index: 9999;
     display: none;
     border: none;
-">←</div>
-
-<!-- Architect 主题兼容的脚本 -->
-<script>
-// 浮动按钮控制
-window.addEventListener('scroll', function() {
-    var btn = document.getElementById('floating-back');
-    if (window.scrollY > 200) {
-        btn.style.display = 'flex';
-    } else {
-        btn.style.display = 'none';
-    }
-});
-
-// 返回功能
-function goBack() {
-    window.history.back();
+    font-weight: bold;
+    text-decoration: none !important;
 }
+</style>
 
-// 浮动按钮点击
-document.getElementById('floating-back').onclick = goBack;
+<a id="architect-back-btn" href="javascript:history.back()" title="返回 (ESC键)">←</a>
 
-// 键盘快捷键
-document.addEventListener('keydown', function(e) {
-    // ESC键返回
-    if (e.key === 'Escape') {
-        goBack();
+<script>
+(function() {
+    var btn = document.getElementById('architect-back-btn');
+    
+    window.onscroll = function() {
+        if (window.pageYOffset > 200) {
+            btn.style.display = 'block';
+        } else {
+            btn.style.display = 'none';
+        }
+    };
+    
+    document.onkeydown = function(e) {
+        e = e || window.event;
+        if (e.key === 'Escape' || e.keyCode === 27) {
+            history.back();
+        }
+    };
+    
+    // 初始显示检查
+    if (window.pageYOffset > 200) {
+        btn.style.display = 'block';
     }
-    // B键返回
-    if (e.key === 'b' || e.key === 'B') {
-        goBack();
-    }
-});
-
-// 给所有返回按钮添加事件
-document.querySelectorAll('[href="javascript:history.back()"]').forEach(function(btn) {
-    btn.onclick = goBack;
-});
+})();
 </script>
