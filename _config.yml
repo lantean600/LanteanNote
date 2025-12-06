@@ -16,14 +16,14 @@ show_downloads: true
 # timezone: Asia/Shanghai  # 时区
 
 # 主题设置
-remote_theme: kitian616/jekyll-TeXt-theme
+theme: jekyll-theme-cayman 
 # jekyll-theme-architect 
 
 # # 插件（GitHub Pages 默认支持）
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-remote-theme
+# plugins:
+#   - jekyll-feed
+#   - jekyll-seo-tag
+#   - jekyll-remote-theme
 
 # # 自定义变量
 # github_username: lantean600
