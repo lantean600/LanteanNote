@@ -1,0 +1,754 @@
+前八个是八大排序算法 后两个算上是十个
+然后每一个算法关注 时间复杂度 空间复杂度 稳定性
+## 插入排序
+### 直接插入排序
+#### 自然语言
+遍历数组，将每一个值与前面的比较，然后在相应位置插入
+#### 代码
+```c
+#include <stdio.h>
+
+void insertionSort(int arr[], int n) {
+    int i, key, j;
+    
+    for (i = 1; i < n; i++) {
+        key = arr[i];  // 当前待插入元素
+        j = i - 1;
+        
+        // 将大于key的元素向后移动
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        
+        // 插入元素
+        arr[j + 1] = key;
+    }
+}
+
+// 打印数组
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("
+");
+}
+
+int main() {
+    int arr[] = {12, 11, 13, 5, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("排序前：");
+    printArray(arr, n);
+    
+    insertionSort(arr, n);
+    
+    printf("排序后：");
+    printArray(arr, n);
+    
+    return 0;
+}
+
+```
+
+### 希尔排序
+根据步长确定子表，然后让子表有序化，步长除2，依次执行
+```c
+#include <stdio.h>
+
+void shellSort(int arr[], int n) {
+    // 初始步长为n/2，每次减半
+    for (int gap = n/2; gap > 0; gap /= 2) {
+        // 对每个步长进行插入排序
+        for (int i = gap; i < n; i++) {
+            // 保存当前元素
+            int temp = arr[i];
+            int j;
+            
+            // 对同一组的元素进行插入排序
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+                arr[j] = arr[j - gap];
+            }
+            
+            // 将temp放到正确位置
+            arr[j] = temp;
+        }
+    }
+}
+
+// 打印数组
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("
+");
+}
+
+int main() {
+    int arr[] = {12, 34, 54, 2, 3, 1, 23, 45, 19, 92};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("排序前：");
+    printArray(arr, n);
+    
+    shellSort(arr, n);
+    
+    printf("排序后：");
+    printArray(arr, n);
+    
+    return 0;
+}
+
+```
+
+## 交换排序
+
+### 冒泡排序
+从前往后（或者从后往前）两两比较，直到最值排到末端（那么就相当于吐了一个最值泡泡），以此类推，直至全部泡泡吐完。
+```c
+void swap(int* a, int* b) {
+
+    int temp = *a;
+
+    *a = *b;
+
+    *b = temp;
+
+}
+
+  
+
+void Bubble(int arr[],int n) {
+
+    for (int i = n-1; i > -1; i--) {
+
+        for (int j = 0; j < i-1; j++) {
+
+            if (arr[j] > arr[j + 1])
+
+                swap(&arr[j], &arr[j + 1]);
+
+        }
+
+    }
+
+}
+```
+
+### 快速排序
+一个标兵就位（选定基准元素），遍历数组，与基准元素比较，大于基准的在右，小于基准的在左，然后递归（递归用栈的视角去讲）
+
+```c
+#include <stdio.h>
+
+void swap(int* a, int* b) {
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+int partition(int arr[], int start, int end) {
+    int pivot = arr[start];
+    int i = start - 1, j = end + 1;
+
+    while (1) {
+        do {
+            i++;
+        } while (arr[i] < pivot);
+        do {
+            j--;
+        } while (arr[j] > pivot);
+        if (i >= j)
+            return j;
+
+        swap(&arr[i], &arr[j]);
+    }
+}
+
+void quickSort(int arr[],int start, int end) {
+	if (start < end) {
+		int p = partition(arr, start, end);
+		quickSort(arr, start, p);
+		quickSort(arr, p + 1, end);
+	}
+}
+
+int main() {
+	int arr[] = {1,4,3,7,9,3,2,8};
+	int n = sizeof(arr) / sizeof(arr[0]);
+	quickSort(arr,0,n-1);
+	for (int i = 0; i < n; i++) {
+		printf("%d ", arr[i]);
+	}
+}
+```
+
+又写了一遍：
+```c
+#include<stdio.h>
+
+void swap(int* a, int* b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int partition(int arr[], int start, int end){
+    int i = start-1, j = end+1;
+    int pivot = arr[start];
+
+    while(1){
+        do{
+            i++;
+        }while(arr[i]<pivot && i<=end);
+        do{
+            j--;
+        }while(arr[j]>pivot && j>=0);
+        if(i>=j)
+            return j;
+        swap(&arr[i],&arr[j]);
+    }
+}
+
+void quickSort(int arr[], int start, int end){
+    if(start<end){
+        int p = partition(arr,start,end);
+        quickSort(arr,start,p);
+        quickSort(arr,p+1,end);
+    }
+}
+
+int main(void)
+{
+    int arr[10];
+    for(int i = 0;i<10;i++){
+        scanf("%d",&arr[i]);
+    }
+    
+	quickSort(arr,0,9);
+	
+    for(int i = 9;i>-1;i--){
+        printf("%d ",arr[i]);
+    }
+
+    return 0;
+}
+```
+
+## 选择排序
+### 直接选择排序
+
+```c
+#include <stdio.h>
+
+void selectionSort(int arr[], int n) {
+    int i, j, min_idx, temp;
+    
+    for (i = 0; i < n-1; i++) {
+        // 找出未排序部分的最小值索引
+        min_idx = i;
+        for (j = i+1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        
+        // 将找到的最小值与未排序数组的第一个元素交换
+        if (min_idx != i) {
+            temp = arr[i];
+            arr[i] = arr[min_idx];
+            arr[min_idx] = temp;
+        }
+    }
+}
+
+// 打印数组
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("
+");
+}
+
+int main() {
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("排序前：");
+    printArray(arr, n);
+    
+    selectionSort(arr, n);
+    
+    printf("排序后：");
+    printArray(arr, n);
+    
+    return 0;
+}
+```
+
+### 堆排序
+```c
+#include <stdio.h>
+
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void heapify(int arr[], int n, int root) {
+    int largest = root;      // 初始化最大值为根节点
+    int left = 2 * root + 1; // 左子节点
+    int right = 2 * root + 2; // 右子节点
+    
+    // 如果左子节点大于根节点
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+    
+    // 如果右子节点大于当前最大值
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+    
+    // 如果最大值不是根节点
+    if (largest != root) {
+        // 交换根节点和最大值
+        swap(&arr[root], &arr[largest]);
+        
+        // 递归调整被影响的子树
+        heapify(arr, n, largest);
+    }
+}
+
+void heapSort(int arr[], int n) {
+    // 构建最大堆
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+    
+    // 逐个从堆顶取出元素
+    for (int i = n - 1; i > 0; i--) {
+        // 将当前堆顶（最大值）移到末尾
+        swap(&arr[0], &arr[i]);
+        
+        // 对剩余元素重新构建最大堆
+        heapify(arr, i, 0);
+    }
+}
+
+// 打印数组
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("
+");
+}
+
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("排序前：");
+    printArray(arr, n);
+    
+    heapSort(arr, n);
+    
+    printf("排序后：");
+    printArray(arr, n);
+    
+    return 0;
+}
+
+```
+
+## 归并排序
+先拆后合
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+void merge(int arr[], int left, int mid, int right) {
+    // 计算两个子数组的大小
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    
+    // 创建临时数组
+    int* L = (int*)malloc(n1 * sizeof(int));
+    int* R = (int*)malloc(n2 * sizeof(int));
+    
+    // 复制数据到临时数组
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+    
+    // 合并临时数组
+    int i = 0, j = 0;
+    int k = left;
+    
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    
+    // 复制L的剩余元素
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    
+    // 复制R的剩余元素
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+    
+    // 释放内存
+    free(L);
+    free(R);
+}
+
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        // 找出中间点
+        int mid = left + (right - left) / 2;
+        
+        // 递归排序左右两半
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        
+        // 合并已排序的两半
+        merge(arr, left, mid, right);
+    }
+}
+
+// 打印数组
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++)
+        printf("%d ", arr[i]);
+    printf("");
+}
+
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("排序前：");
+    printArray(arr, n);
+    
+    mergeSort(arr, 0, n - 1);
+    
+    printf("排序后：");
+    printArray(arr, n);
+    
+    return 0;
+}
+```
+
+## 基数排序
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+// 获取数组中的最大值
+int getMax(int arr[], int n) {
+    int max = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+// 对数组按照特定数位进行计数排序
+void countingSortByDigit(int arr[], int n, int exp) {
+    int* output = (int*)malloc(n * sizeof(int));
+    int count[10] = {0}; // 计数数组，默认为10
+    
+    // 统计当前位上每个数字出现的次数
+    for (int i = 0; i < n; i++) {
+        count[(arr[i] / exp) % 10]++;
+    }
+    
+    // 计算累加数组，确定每个数字在输出数组中的位置
+    for (int i = 1; i < 10; i++) {
+        count[i] += count[i - 1];
+    }
+    
+    // 构建输出数组，从后向前遍历以保持稳定性
+    for (int i = n - 1; i >= 0; i--) {
+        output[count[(arr[i] / exp) % 10] - 1] = arr[i];
+        count[(arr[i] / exp) % 10]--;
+    }
+    
+    // 将排序好的数组复制回原数组
+    for (int i = 0; i < n; i++) {
+        arr[i] = output[i];
+    }
+    
+    free(output);
+}
+
+// 基数排序
+void radixSort(int arr[], int n) {
+    if (n <= 1) {
+        return;
+    }
+    
+    // 找出最大值，确定最大位数
+    int max = getMax(arr, n);
+    
+    // 对每一位进行计数排序
+    for (int exp = 1; max / exp > 0; exp *= 10) {
+        countingSortByDigit(arr, n, exp);
+    }
+}
+
+// 打印数组
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("
+");
+}
+
+int main() {
+    int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("排序前：");
+    printArray(arr, n);
+    
+    radixSort(arr, n);
+    
+    printf("排序后：");
+    printArray(arr, n);
+    
+    return 0;
+}
+
+```
+
+## 计数排序
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+void countingSort(int arr[], int size) {
+    if (size <= 1) {
+        return;
+    }
+    
+    // 找出数组中的最大值和最小值
+    int max = arr[0], min = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+    
+    // 计算计数数组的大小
+    int range = max - min + 1;
+    
+    // 创建计数数组并统计每个元素出现的次数
+    int* count = (int*)malloc(range * sizeof(int));
+    for (int i = 0; i < range; i++) {
+        count[i] = 0;
+    }
+    
+    for (int i = 0; i < size; i++) {
+        count[arr[i] - min]++;
+    }
+    
+    // 计算累加数组，确定每个元素在排序后的位置
+    for (int i = 1; i < range; i++) {
+        count[i] += count[i - 1];
+    }
+    
+    // 创建临时数组存储排序结果
+    int* output = (int*)malloc(size * sizeof(int));
+    
+    // 从后往前遍历原数组，保证排序的稳定性
+    for (int i = size - 1; i >= 0; i--) {
+        output[count[arr[i] - min] - 1] = arr[i];
+        count[arr[i] - min]--;
+    }
+    
+    // 将排序结果复制回原数组
+    for (int i = 0; i < size; i++) {
+        arr[i] = output[i];
+    }
+    
+    // 释放内存
+    free(count);
+    free(output);
+}
+
+// 打印数组
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("
+");
+}
+
+int main() {
+    int arr[] = {4, 2, 2, 8, 3, 3, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("排序前：");
+    printArray(arr, n);
+    
+    countingSort(arr, n);
+    
+    printf("排序后：");
+    printArray(arr, n);
+    
+    return 0;
+}
+
+```
+
+## 桶排序
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+// 定义桶节点
+typedef struct Node {
+    double data;
+    struct Node* next;
+} Node;
+
+// 创建新节点
+Node* createNode(double data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// 插入节点（插入排序）
+void insertSorted(Node** head, double data) {
+    Node* newNode = createNode(data);
+    
+    // 如果链表为空或新节点值小于头节点
+    if (*head == NULL || (*head)->data >= data) {
+        newNode->next = *head;
+        *head = newNode;
+        return;
+    }
+    
+    // 查找插入位置
+    Node* current = *head;
+    while (current->next != NULL && current->next->data < data) {
+        current = current->next;
+    }
+    
+    // 插入节点
+    newNode->next = current->next;
+    current->next = newNode;
+}
+
+// 桶排序
+void bucketSort(double arr[], int size) {
+    if (size <= 1) {
+        return;
+    }
+    
+    // 确定桶的数量
+    int bucketCount = size;
+    
+    // 创建桶（链表数组）
+    Node** buckets = (Node**)malloc(bucketCount * sizeof(Node*));
+    for (int i = 0; i < bucketCount; i++) {
+        buckets[i] = NULL;
+    }
+    
+    // 找出数组中的最大值和最小值
+    double max = arr[0], min = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+    
+    // 计算每个桶的范围大小
+    double range = (max - min) / bucketCount;
+    
+    // 将元素分配到对应的桶中
+    for (int i = 0; i < size; i++) {
+        // 计算元素应该放入哪个桶
+        int bucketIndex = (int)((arr[i] - min) / range);
+        
+        // 处理最大值的边界情况
+        if (bucketIndex == bucketCount) {
+            bucketIndex--;
+        }
+        
+        // 插入到对应桶中（保持有序）
+        insertSorted(&buckets[bucketIndex], arr[i]);
+    }
+    
+    // 将桶中排序好的元素放回原数组
+    int index = 0;
+    for (int i = 0; i < bucketCount; i++) {
+        Node* current = buckets[i];
+        while (current != NULL) {
+            arr[index++] = current->data;
+            Node* temp = current;
+            current = current->next;
+            free(temp); // 释放节点内存
+        }
+    }
+    
+    // 释放桶数组内存
+    free(buckets);
+}
+
+// 打印数组
+void printArray(double arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%.2f ", arr[i]);
+    }
+    printf("
+");
+}
+
+int main() {
+    double arr[] = {0.42, 0.32, 0.33, 0.52, 0.37, 0.47, 0.51};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    printf("排序前：");
+    printArray(arr, n);
+    
+    bucketSort(arr, n);
+    
+    printf("排序后：");
+    printArray(arr, n);
+    
+    return 0;
+}
+
+```
+
