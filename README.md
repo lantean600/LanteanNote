@@ -1,2 +1,3 @@
 # LanteanNote.github.io
-for personal note
+一个持续进化的个人知识库。
+  旨在系统性地承载与联结个人的思考、学习和实践经验，使其随时间积累价值。
