@@ -16,7 +16,7 @@ show_downloads: true
 # timezone: Asia/Shanghai  # 时区
 
 # 主题设置
-theme: tactile
+remote_theme: kitian616/jekyll-TeXt-theme
 # jekyll-theme-architect 
 
 # # 插件（GitHub Pages 默认支持）
