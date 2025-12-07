@@ -1,6 +1,6 @@
 
 
-[[github]] //存放代码
+[github] //存放代码
 https://gitcode.com/2301_77451179/Note //存放代码
 
 
