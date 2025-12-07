@@ -32,7 +32,7 @@
 [pintia](https://pintia.cn/problem-sets/dashboard) //浙大PAT
 
 ### 课程
-[【【强烈推荐】4小时彻底掌握C指针 - 顶尖程序员图文讲解 - UP主翻译校对 (已完结)](https://www.bilibili.com/video/BV1bo4y1Z7xf/?share_source=copy_web&vd_source=850f61458dbe3511641aafed97458af0)
+[【强烈推荐】4小时彻底掌握C指针 - 顶尖程序员图文讲解 - UP主翻译校对 (已完结)](https://www.bilibili.com/video/BV1bo4y1Z7xf/?share_source=copy_web&vd_source=850f61458dbe3511641aafed97458af0)
 
 
 [【清华学神尹成带你零基础入门C/C++编程】]( https://www.bilibili.com/video/BV1w54y1L7iu/?share_source=copy_web&vd_source=850f61458dbe3511641aafed97458af0)
