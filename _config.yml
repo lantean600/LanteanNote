@@ -20,8 +20,8 @@ kramdown:
 # timezone: Asia/Shanghai  # 时区
 
 # 主题设置
-theme: jekyll-theme-architect
-override_theme_default_layout: false
+# theme: jekyll-theme-architect
+# override_theme_default_layout: false
 # jekyll-theme-architect 
 # jekyll-theme-cayman
 
