@@ -106,16 +106,29 @@
     
     <style>
         :root {
-            --primary-color: #8b5cf6;
-            --primary-hover: #7c3aed;
-            --secondary-color: #a78bfa;
-            --background-color: #1e1b4b; /* 深紫背景 */
-            --surface-color: #2e2a6e;
-            --text-color: #e9d5ff;
-            --text-secondary: #c4b5fd;
-            --border-color: #4c1d95;
-        }        
+            /* === 清华紫主题核心配色 === */
+            /* 主色调：采用稳重、典雅的深紫色，源自清华校色 */
+            --primary-color: #6f42c1;     /* 清华紫（较深、稳重） */
+            --primary-hover: #5a32a3;     /* 悬停时加深，提供反馈 */
         
+            /* 背景与表面：使用非常浅的灰色，最大化与深色文字对比 */
+            --background-color: #f8f9fa;  /* 接近纯白的浅灰背景 */
+            --surface-color: #ffffff;     /* 纯白卡片/模块背景 */
+        
+            /* 文字：使用深灰至黑色，确保在任何背景下都极度清晰 */
+            --text-color: #212529;        /* 主要正文 - 接近黑色 */
+            --text-secondary: #495057;    /* 次要文字 - 深灰色 */
+            --secondary-color: #6c757d;   /* 辅助信息、图标色 - 中灰色 */
+        
+            /* 边框与分割线：使用很浅的灰色，避免干扰 */
+            --border-color: #dee2e6;      /* 浅灰色边框 */
+        
+            /* === 以下为非颜色变量，保持不变即可 === */
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 阴影可调淡 */
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }        
         /* 基础样式重置与设置 */
         * {
             margin: 0;
