@@ -21,7 +21,7 @@ kramdown:
 # timezone: Asia/Shanghai  # 时区
 
 # 主题设置
-theme: jekyll-theme-minimal
+theme: jekyll-theme-architect
 # jekyll-theme-architect 
 # jekyll-theme-cayman  
 
