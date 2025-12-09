@@ -159,13 +159,18 @@
 
         /* 页眉样式 */
         header {
-            display: block; /* 将 flex 改为 block */
-            text-align: center; /* 确保子元素居中 */
-            background: linear-gradient(to right, var(--primary-color), #3b82f6);
+            /* 1. 关键：强制设为块级布局并清除浮动 */
+            display: block !important;
+            /* 2. 添加背景色（使用您的清华紫主题色） */
+            background: var(--primary-hover); /* 或者使用深紫色：background: #5a32a3; */
+            /* 3. 原有和必需的样式 */
             color: white;
             padding: 3rem 2rem;
-            /* ... 其他样式保持不变 ... */
-            }
+            text-align: center;
+            /* 4. 清除可能影响布局的属性 */
+            float: none;
+            position: static;
+        }
         .site-title {
             font-size: 2.8rem;
             font-weight: 800;
