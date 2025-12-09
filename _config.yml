@@ -7,8 +7,8 @@ email: "614625562@qq.com"
 show_downloads: true
 
 # URL 设置
-baseurl: ""  # 如果项目在子路径，填写子路径名
-url: "https://lantean600.github.io/LanteanNote"  # 你的域名
+# baseurl: ""  # 如果项目在子路径，填写子路径名
+# url: "https://lantean600.github.io/LanteanNote"  # 你的域名
 
 # 构建设置
 markdown: kramdown
