@@ -7,15 +7,14 @@ email: "614625562@qq.com"
 show_downloads: true
 
 # URL 设置
-# baseurl: ""  # 如果项目在子路径，填写子路径名
-# url: "https://lantean600.github.io/LanteanNote"  # 你的域名
+baseurl: "/LanteanNote"  # 如果是用户名的子仓库，必须设置！
+url: "https://lantean600.github.io"  # 主域名
 
 # 构建设置
 markdown: kramdown
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
-
 # markdown: kramdown  # Markdown 解析器
 # permalink: pretty   # 链接格式
 # timezone: Asia/Shanghai  # 时区
@@ -23,7 +22,17 @@ kramdown:
 # 主题设置
 theme: jekyll-theme-architect
 # jekyll-theme-architect 
-# jekyll-theme-cayman  
+# jekyll-theme-cayman
+
+# 自定义头文件（关键！）
+head_scripts:
+  - "https://polyfill.io/v3/polyfill.min.js?features=es6"
+  - "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+
+# 自定义MathJax配置
+mathjax:
+  enable: true
+  config_file: "mathjax-config.js"
 
 # # 插件（GitHub Pages 默认支持）
 # plugins:
