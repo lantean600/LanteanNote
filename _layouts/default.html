@@ -159,17 +159,14 @@
 
         /* 页眉样式 */
         header {
-            /* 1. 关键：强制设为块级布局并清除浮动 */
-            display: block !important;
-            /* 2. 添加背景色（使用您的清华紫主题色） */
-            background: var(--primary-hover); /* 或者使用深紫色：background: #5a32a3; */
-            /* 3. 原有和必需的样式 */
+            display: flex;
+            flex-direction: column; /* 关键：改为垂直排列 */
+            align-items: center; /* 子元素水平居中 */
+            justify-content: center; /* 子元素垂直居中（可选） */
+            background: linear-gradient(to right, var(--primary-color), #3b82f6);
             color: white;
             padding: 3rem 2rem;
-            text-align: center;
-            /* 4. 清除可能影响布局的属性 */
-            float: none;
-            position: static;
+            /* ... 其他样式保持不变 ... */
         }
         .site-title {
             font-size: 2.8rem;
