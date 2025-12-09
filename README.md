@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "欢迎来到我的主页"
-mathjax: true
 ---
 
 # 高数（上）
