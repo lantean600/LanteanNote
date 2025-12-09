@@ -40,6 +40,7 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-remote-theme
+  - jekyll-optional-front-matter
 
 # # 自定义变量
 # github_username: lantean600
