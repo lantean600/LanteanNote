@@ -1,3 +1,7 @@
+---
+layout: default
+title: "C语言学习资源"
+---
 
 
 [github](https://gitcode.com) //存放代码
