@@ -46,9 +46,10 @@
         <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
         <nav>
             <a href="{{ '/' | relative_url }}">首页</a>
-            {% for page in site.pages %}
-                {% if page.title %}
-                    <a href="{{ page.url | relative_url }}">{{ page.title }}</a>
+            <!-- 修复：将循环变量名从'page'改为非冲突名称，如'p' -->
+            {% for p in site.pages %}
+                {% if p.title %}
+                    <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
                 {% endif %}
             {% endfor %}
         </nav>
@@ -71,7 +72,7 @@
 
     
     <!-- MathJax支持 -->
-   <!-- 根据 Front Matter 开关动态加载 MathJax -->
+    <!-- 根据 Front Matter 开关动态加载 MathJax -->
     {% if page.mathjax %}
     <script>
     // 初始化 MathJax 配置
