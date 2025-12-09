@@ -10,7 +10,11 @@ show_downloads: true
 # baseurl: ""  # 如果项目在子路径，填写子路径名
 # url: "https://lantean600.github.io/LanteanNote"  # 你的域名
 
-# # 构建设置
+# 构建设置
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
 # markdown: kramdown  # Markdown 解析器
 # permalink: pretty   # 链接格式
 # timezone: Asia/Shanghai  # 时区
