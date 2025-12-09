@@ -159,11 +159,13 @@
 
         /* 页眉样式 */
         header {
+            display: block; /* 将 flex 改为 block */
+            text-align: center; /* 确保子元素居中 */
             background: linear-gradient(to right, var(--primary-color), #3b82f6);
             color: white;
             padding: 3rem 2rem;
-            text-align: center;
-        }
+            /* ... 其他样式保持不变 ... */
+            }
         .site-title {
             font-size: 2.8rem;
             font-weight: 800;
