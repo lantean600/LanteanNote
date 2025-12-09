@@ -68,25 +68,24 @@
     <footer>
         <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
     </footer>
+
     
     <!-- MathJax支持 -->
+   <!-- 根据 Front Matter 开关动态加载 MathJax -->
     {% if page.mathjax %}
-        <script type="text/javascript" async
-          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-        </script>
-        <script type="text/x-mathjax-config">
-          MathJax.Hub.Config({
-            tex2jax: {
-              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-              processEscapes: true
-            },
-            "HTML-CSS": {
-              availableFonts: ["TeX"],
-              scale: 90
-            }
-          });
-        </script>
+    <script>
+    // 初始化 MathJax 配置
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // 行内公式分隔符
+        displayMath: [['$$', '$$'], ['\\[', '\\]']] // 块级公式分隔符
+      }
+    };
+    </script>
+    <!-- 加载 MathJax 3 库 -->
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
     {% endif %}
 </body>
 </html>
