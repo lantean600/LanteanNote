@@ -1,16 +1,92 @@
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-      processEscapes: true
-    },
-    "HTML-CSS": {
-      availableFonts: ["TeX"],
-      scale: 90
-    }
-  });
-</script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    
+    <!-- CSS样式 -->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .math {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        
+        pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 6px;
+            overflow: auto;
+        }
+        
+        code {
+            background-color: rgba(27,31,35,.05);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+        <nav>
+            <a href="{{ '/' | relative_url }}">首页</a>
+            {% for page in site.pages %}
+                {% if page.title %}
+                    <a href="{{ page.url | relative_url }}">{{ page.title }}</a>
+                {% endif %}
+            {% endfor %}
+        </nav>
+    </header>
+    
+    <main>
+        <article>
+            <h1>{{ page.title }}</h1>
+            {% if page.date %}
+                <p class="post-date">{{ page.date | date: "%Y年%m月%d日" }}</p>
+            {% endif %}
+            
+            {{ content }}
+        </article>
+    </main>
+    
+    <footer>
+        <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
+    </footer>
+    
+    <!-- MathJax支持 -->
+    {% if page.mathjax %}
+        <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+            tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+              processEscapes: true
+            },
+            "HTML-CSS": {
+              availableFonts: ["TeX"],
+              scale: 90
+            }
+          });
+        </script>
+    {% endif %}
+</body>
+</html>
