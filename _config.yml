@@ -35,11 +35,11 @@ mathjax:
   enable: true
   config_file: "mathjax-config.js"
 
-# # 插件（GitHub Pages 默认支持）
-# plugins:
-#   - jekyll-feed
-#   - jekyll-seo-tag
-#   - jekyll-remote-theme
+# 插件（GitHub Pages 默认支持）
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-remote-theme
 
 # # 自定义变量
 # github_username: lantean600
