@@ -14,6 +14,7 @@ highlighter: rouge
 # 主题设置
 # 关键：由于您已完全自定义了 _layouts/default.html，必须注释掉主题，否则会产生冲突。
 # theme: minima
+remote_theme: jekyll/minima
 
 # 插件
 plugins:
