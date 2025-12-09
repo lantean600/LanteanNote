@@ -159,8 +159,10 @@
 
         /* 页眉样式 */
         header {
-            background: var(--primary-hover); /* 使用您定义的 --primary-hover (#5a32a3) */
-            /* 保留原有的 color, padding 等其他属性 */
+            background: linear-gradient(to right, var(--primary-color), #3b82f6);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
         }
         .site-title {
             font-size: 2.8rem;
@@ -195,7 +197,11 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .main-nav a {
-            color: rgba(255, 255, 255, 0.9);
+            /* 将原来的白色半透明改为使用您的主色调或深色文字 */
+            color: var(--primary-color); /* 使用您的清华紫色 (#6f42c1) */
+            /* 或者如果觉得紫色在深色背景上不够突出，可以用纯白色 */
+            /* color: #ffffff; */ /* 备用方案：纯白色 */
+            
             text-decoration: none;
             font-weight: 600;
             padding: 0.5rem 1rem;
@@ -204,9 +210,10 @@
             border: 1px solid transparent;
         }
         .main-nav a:hover,
-        .main-nav a.active { /* 可为当前页面链接添加 .active 类 */
-            background-color: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+        .main-nav a.active {
+            background-color: rgba(111, 66, 193, 0.15); /* 使用半透明的紫色作为悬停背景 */
+            border-color: var(--primary-color); /* 边框使用紫色 */
+            color: #ffffff; /* 悬停时文字变为白色，更醒目 */
             transform: translateY(-2px);
         }
 
