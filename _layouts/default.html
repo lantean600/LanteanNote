@@ -1,95 +1,3 @@
-<!-- <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - {{ site.title }}</title> -->
-    
-    <!-- CSS样式 -->
-    <!-- <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .math {
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-        
-        pre {
-            background-color: #f6f8fa;
-            padding: 16px;
-            border-radius: 6px;
-            overflow: auto;
-        }
-        
-        code {
-            background-color: rgba(27,31,35,.05);
-            border-radius: 3px;
-            padding: 0.2em 0.4em;
-        }
-        
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
-        <nav>
-            <a href="{{ '/' | relative_url }}">首页</a> -->
-            <!-- 修复：将循环变量名从'page'改为非冲突名称，如'p' -->
-            <!-- {% for p in site.pages %}
-                {% if p.title %}
-                    <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
-                {% endif %}
-            {% endfor %}
-        </nav>
-    </header>
-    
-    <main>
-        <article>
-            <h1>{{ page.title }}</h1>
-            {% if page.date %}
-                <p class="post-date">{{ page.date | date: "%Y年%m月%d日" }}</p>
-            {% endif %}
-            
-            {{ content }}
-        </article>
-    </main>
-    
-    <footer>
-        <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
-    </footer> -->
-
-    
-    <!-- MathJax支持 -->
-    <!-- 根据 Front Matter 开关动态加载 MathJax -->
-    <!-- {% if page.mathjax %}
-    <script> -->
-    <!-- // 初始化 MathJax 配置
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']], // 行内公式分隔符
-        displayMath: [['$$', '$$'], ['\\[', '\\]']] // 块级公式分隔符
-      }
-    };
-    </script> -->
-    <!-- 加载 MathJax 3 库 -->
-    <!-- <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-    {% endif %}
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -101,34 +9,8 @@
     
     <!-- 样式表 -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    <!-- 可选：引入字体图标库，如Font Awesome -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
     
     <style>
-        :root {
-            /* === 清华紫主题核心配色 === */
-            /* 主色调：采用稳重、典雅的深紫色，源自清华校色 */
-            --primary-color: #6f42c1;     /* 清华紫（较深、稳重） */
-            --primary-hover: #5a32a3;     /* 悬停时加深，提供反馈 */
-        
-            /* 背景与表面：使用非常浅的灰色，最大化与深色文字对比 */
-            --background-color: #f8f9fa;  /* 接近纯白的浅灰背景 */
-            --surface-color: #ffffff;     /* 纯白卡片/模块背景 */
-        
-            /* 文字：使用深灰至黑色，确保在任何背景下都极度清晰 */
-            --text-color: #212529;        /* 主要正文 - 接近黑色 */
-            --text-secondary: #495057;    /* 次要文字 - 深灰色 */
-            --secondary-color: #6c757d;   /* 辅助信息、图标色 - 中灰色 */
-        
-            /* 边框与分割线：使用很浅的灰色，避免干扰 */
-            --border-color: #dee2e6;      /* 浅灰色边框 */
-        
-            /* === 以下为非颜色变量，保持不变即可 === */
-            --border-radius: 12px;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 阴影可调淡 */
-            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-        }        
         /* 基础样式重置与设置 */
         * {
             margin: 0;
@@ -136,14 +18,86 @@
             box-sizing: border-box;
         }
         
+        :root {
+            /* === 亮色主题配色 === */
+            --primary-color: #6f42c1;
+            --primary-hover: #5a32a3;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #212529;
+            --text-secondary: #495057;
+            --secondary-color: #6c757d;
+            --border-color: #dee2e6;
+            --code-bg: rgba(37, 99, 235, 0.08);
+            --code-color: #1e40af;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --shadow-hover-color: rgba(0, 0, 0, 0.08);
+            --blockquote-bg: var(--surface-color);
+            --scrollbar-thumb: #ccc;
+            --scrollbar-track: rgba(111, 66, 193, 0.1);
+            --gradient-start: #f5f7fa;
+            --gradient-end: #e4edf5;
+            
+            /* 非颜色变量 */
+            --border-radius: 12px;
+            --shadow: 0 4px 12px var(--shadow-color);
+            --shadow-hover: 0 8px 24px var(--shadow-hover-color);
+            --transition: all 0.3s ease;
+        }
+        
+        /* 暗色主题变量 */
+        [data-theme="dark"] {
+            --primary-color: #9d7ae6;
+            --primary-hover: #b39bff;
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --secondary-color: #888888;
+            --border-color: #333333;
+            --code-bg: rgba(66, 135, 245, 0.15);
+            --code-color: #8bb9ff;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --shadow-hover-color: rgba(0, 0, 0, 0.3);
+            --blockquote-bg: #252525;
+            --scrollbar-thumb: #555;
+            --scrollbar-track: rgba(111, 66, 193, 0.2);
+            --gradient-start: #0a0a0a;
+            --gradient-end: #1a1a2e;
+        }
+        
+        /* 自动主题 - 跟随系统 */
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --primary-color: #9d7ae6;
+                --primary-hover: #b39bff;
+                --background-color: #121212;
+                --surface-color: #1e1e1e;
+                --text-color: #e0e0e0;
+                --text-secondary: #b0b0b0;
+                --secondary-color: #888888;
+                --border-color: #333333;
+                --code-bg: rgba(66, 135, 245, 0.15);
+                --code-color: #8bb9ff;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --shadow-hover-color: rgba(0, 0, 0, 0.3);
+                --blockquote-bg: #252525;
+                --scrollbar-thumb: #555;
+                --scrollbar-track: rgba(111, 66, 193, 0.2);
+                --gradient-start: #0a0a0a;
+                --gradient-end: #1a1a2e;
+            }
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.8;
             color: var(--text-color);
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             background-attachment: fixed;
             min-height: 100vh;
             padding: 20px;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         /* 容器：居中并限制最大宽度 */
@@ -160,34 +114,73 @@
         /* 页眉样式 */
         header {
             display: flex;
-            flex-direction: column; /* 关键：改为垂直排列 */
-            align-items: center; /* 子元素水平居中 */
-            justify-content: center; /* 子元素垂直居中（可选） */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background: linear-gradient(to right, var(--primary-color), #3b82f6);
             color: white;
             padding: 3rem 2rem;
-            /* ... 其他样式保持不变 ... */
         }
+        
         .site-title {
             font-size: 2.8rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
             letter-spacing: -0.5px;
         }
+        
         .site-title a {
             color: inherit;
             text-decoration: none;
             transition: var(--transition);
         }
+        
         .site-title a:hover {
             opacity: 0.9;
             text-shadow: 0 0 15px rgba(255,255,255,0.5);
         }
+        
         .site-description {
             font-size: 1.2rem;
             opacity: 0.9;
             max-width: 700px;
             margin: 0 auto;
+        }
+
+        /* 主题切换按钮 */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        [data-theme="dark"] .theme-toggle,
+        @media (prefers-color-scheme: dark) {
+            .theme-toggle {
+                background: rgba(0, 0, 0, 0.2);
+            }
+            
+            .theme-toggle:hover {
+                background: rgba(0, 0, 0, 0.3);
+            }
         }
 
         /* 主导航 */
@@ -200,12 +193,9 @@
             background-color: rgba(255,255,255,0.05);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
+        
         .main-nav a {
-            /* 将原来的白色半透明改为使用您的主色调或深色文字 */
-            color: var(--primary-color); /* 使用您的清华紫色 (#6f42c1) */
-            /* 或者如果觉得紫色在深色背景上不够突出，可以用纯白色 */
-            /* color: #ffffff; */ /* 备用方案：纯白色 */
-            
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
             font-weight: 600;
             padding: 0.5rem 1rem;
@@ -213,27 +203,31 @@
             transition: var(--transition);
             border: 1px solid transparent;
         }
+        
         .main-nav a:hover,
         .main-nav a.active {
-            background-color: rgba(111, 66, 193, 0.15); /* 使用半透明的紫色作为悬停背景 */
-            border-color: var(--primary-color); /* 边框使用紫色 */
-            color: #ffffff; /* 悬停时文字变为白色，更醒目 */
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
             transform: translateY(-2px);
         }
 
         /* 主要内容区域 */
         main {
-            padding: 1.5rem 2.5rem 3rem;;
+            padding: 1.5rem 2.5rem 3rem;
         }
+        
         article {
             max-width: 800px;
             margin: 0 auto;
         }
+        
         .article-header {
             margin-bottom: 2.5rem;
             padding-bottom: 1.5rem;
             border-bottom: 2px solid var(--border-color);
         }
+        
         .post-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -241,6 +235,7 @@
             line-height: 1.3;
             margin-bottom: 0.5rem;
         }
+        
         .post-meta {
             color: var(--text-secondary);
             font-size: 0.95rem;
@@ -248,7 +243,8 @@
             align-items: center;
             gap: 1rem;
         }
-        .post-meta i { /* 如果使用图标库 */
+        
+        .post-meta i {
             margin-right: 0.3rem;
         }
 
@@ -256,6 +252,7 @@
         .article-content {
             font-size: 1.1rem;
         }
+        
         .article-content h2 {
             color: var(--primary-color);
             margin-top: 2.5rem;
@@ -263,21 +260,26 @@
             padding-bottom: 0.5rem;
             border-bottom: 2px dashed var(--border-color);
         }
+        
         .article-content h3 {
             color: var(--secondary-color);
             margin-top: 2rem;
         }
+        
         .article-content p {
             margin-bottom: 1.5rem;
         }
+        
         .article-content ul, 
         .article-content ol {
             margin-left: 1.8rem;
             margin-bottom: 1.5rem;
         }
+        
         .article-content li {
             margin-bottom: 0.5rem;
         }
+        
         .article-content a {
             color: var(--primary-color);
             text-decoration: none;
@@ -285,6 +287,7 @@
             border-bottom: 1px dotted var(--primary-color);
             transition: var(--transition);
         }
+        
         .article-content a:hover {
             color: var(--primary-hover);
             border-bottom-style: solid;
@@ -300,13 +303,15 @@
             box-shadow: inset 0 0 0 1px var(--border-color);
             font-size: 0.95em;
         }
+        
         code {
-            background-color: rgba(37, 99, 235, 0.08);
-            color: #1e40af;
+            background-color: var(--code-bg);
+            color: var(--code-color);
             padding: 0.2em 0.4em;
             border-radius: 4px;
             font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
         }
+        
         pre code {
             background: none;
             color: inherit;
@@ -320,7 +325,7 @@
             margin: 2rem 0;
             color: var(--text-secondary);
             font-style: italic;
-            background: var(--surface-color);
+            background: var(--blockquote-bg);
             border-radius: 0 var(--border-radius) var(--border-radius) 0;
             padding: 1.5rem;
         }
@@ -344,79 +349,203 @@
             border-top: 1px solid var(--border-color);
             font-size: 0.95rem;
         }
+        
         .footer-links {
             margin-top: 1rem;
             display: flex;
             justify-content: center;
             gap: 1.5rem;
         }
+        
         .footer-links a {
             color: var(--secondary-color);
             text-decoration: none;
             transition: var(--transition);
         }
+        
         .footer-links a:hover {
             color: var(--primary-color);
         }
-        /* 为 MathJax 公式容器添加样式 */
-        .mathjax-container {
+        
+        /* === MathJax 公式样式解决方案 === */
+        
+        /* 为 MathJax 显示模式公式添加滚动容器 */
+        .mathjax-scroll-container {
             overflow-x: auto;
             overflow-y: hidden;
-            padding: 1em 0;
-            margin: 1em 0;
+            margin: 1.5em 0;
+            padding: 1.2em 0;
             -webkit-overflow-scrolling: touch;
-         }
+            position: relative;
+            max-width: 100%;
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            box-shadow: inset 0 0 0 1px var(--border-color);
+        }
         
-        /* 响应式设计：适配移动设备 */
+        /* 直接针对 MathJax 生成的元素添加样式 */
+        mjx-container[display="true"] {
+            display: block !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            max-width: 100% !important;
+            padding: 1.2em 0 !important;
+            margin: 1.5em 0 !important;
+            -webkit-overflow-scrolling: touch !important;
+            background-color: var(--surface-color) !important;
+            border-radius: var(--border-radius) !important;
+        }
+        
+        /* 给滚动容器添加渐变提示（可选） */
+        .mathjax-scroll-container::before,
+        .mathjax-scroll-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .mathjax-scroll-container::before {
+            left: 0;
+            background: linear-gradient(to right, var(--surface-color) 0%, transparent 100%);
+        }
+        
+        .mathjax-scroll-container::after {
+            right: 0;
+            background: linear-gradient(to left, var(--surface-color) 0%, transparent 100%);
+        }
+        
+        /* 当可以滚动时显示渐变提示 */
+        .mathjax-scroll-container.scrollable::before,
+        .mathjax-scroll-container.scrollable::after {
+            opacity: 1;
+        }
+        
+        /* 滚动条样式 - 统一设置 */
+        .mathjax-scroll-container::-webkit-scrollbar,
+        mjx-container[display="true"]::-webkit-scrollbar {
+            height: 8px !important;
+            border-radius: 4px !important;
+        }
+        
+        .mathjax-scroll-container::-webkit-scrollbar-track,
+        mjx-container[display="true"]::-webkit-scrollbar-track {
+            background: var(--scrollbar-track) !important;
+            border-radius: 4px !important;
+        }
+        
+        .mathjax-scroll-container::-webkit-scrollbar-thumb,
+        mjx-container[display="true"]::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb) !important;
+            border-radius: 4px !important;
+        }
+        
+        .mathjax-scroll-container::-webkit-scrollbar-thumb:hover,
+        mjx-container[display="true"]::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color) !important;
+        }
+        
+        /* Firefox 滚动条样式 */
+        .mathjax-scroll-container,
+        mjx-container[display="true"] {
+            scrollbar-width: thin !important;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track) !important;
+        }
+        
+        /* 针对行内公式的限制 */
+        mjx-container:not([display="true"]) {
+            max-width: 100% !important;
+            overflow-wrap: break-word !important;
+            display: inline-block !important;
+            vertical-align: middle !important;
+        }
+        
+        /* 公式缩放效果（可选） */
+        mjx-container {
+            transition: transform 0.3s ease;
+        }
+        
+        /* 当公式被触摸或悬停时轻微放大（可选） */
+        @media (hover: hover) and (pointer: fine) {
+            .mathjax-scroll-container:hover mjx-container,
+            mjx-container[display="true"]:hover {
+                transform: scale(1.01);
+            }
+        }
+        
+        /* 响应式调整 */
         @media (max-width: 768px) {
-            .mathjax-container {
-                font-size: 0.9em;
+            .mathjax-scroll-container,
+            mjx-container[display="true"] {
+                padding: 0.8em 0 !important;
+                margin: 1em 0 !important;
+                font-size: 0.95em !important;
             }
-            mjx-container {
-                max-width: 100% !important;
-                overflow-x: auto !important;
-            }
+            
             .container {
                 margin: 20px auto;
                 border-radius: 0;
             }
+            
             header {
                 padding: 2rem 1.5rem;
             }
+            
             .site-title {
                 font-size: 2.2rem;
             }
+            
             .main-nav {
                 padding: 1rem;
                 gap: 0.8rem;
             }
+            
             .main-nav a {
                 padding: 0.4rem 0.8rem;
                 font-size: 0.9rem;
             }
+            
             main {
                 padding: 2rem 1.5rem;
             }
+            
             .post-title {
                 font-size: 2rem;
             }
+            
             :root {
                 --border-radius: 8px;
             }
         }
-        /* 滚动条样式 */
-           .mathjax-container::-webkit-scrollbar {
-                height: 6px;
+        
+        /* 打印时取消滚动和渐变效果 */
+        @media print {
+            .mathjax-scroll-container,
+            mjx-container[display="true"] {
+                overflow: visible !important;
+                max-width: none !important;
             }
-
-            .mathjax-container::-webkit-scrollbar-thumb {
-                background: #ccc;
-                border-radius: 3px;
+            
+            .mathjax-scroll-container::before,
+            .mathjax-scroll-container::after {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
+            <!-- 主题切换按钮 -->
+            <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                <span id="themeIcon">🌙</span>
+            </button>
+            
             <h1 class="site-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
             {% if site.description %}
                 <p class="site-description">{{ site.description }}</p>
@@ -433,8 +562,6 @@
                     </a>
                 {% endif %}
             {% endfor %}
-            <!-- 示例：可以在此添加更多固定链接 -->
-            <!-- <a href="/archive.html">📚 归档</a> -->
         </nav>
 
         <main>
@@ -443,7 +570,6 @@
                     <h1 class="post-title">{{ page.title }}</h1>
                     {% if page.date %}
                         <div class="post-meta">
-                            <!-- 如果引入图标库，可使用：<i class="far fa-calendar-alt"></i> -->
                             <span>📅 {{ page.date | date: "%Y年%m月%d日" }}</span>
                             {% if page.author %}
                                 <span>👤 {{ page.author }}</span>
@@ -465,12 +591,9 @@
             <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. 知识共享，共同成长。</p>
             <div class="footer-links">
                 <a href="{{ site.github.repository_url }}" target="_blank" title="查看源码">GitHub</a>
-                <!-- 可以添加更多链接，如关于、RSS等 -->
-                <!-- <a href="/feed.xml">RSS订阅</a> -->
-                <!-- <a href="/about/">关于本站</a> -->
             </div>
         </footer>
-    </div> <!-- /.container -->
+    </div>
 
     <!-- MathJax支持 -->
     {% if page.mathjax %}
@@ -480,24 +603,161 @@
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
       },
+      chtml: {
+        // 使用 CommonHTML 渲染器，在移动端性能更好
+        scale: 0.95,
+        minScale: 0.5,
+        matchFontHeight: false,
+        adaptiveCSS: true
+      },
       svg: {
         fontCache: 'global',
-        linebreaks: { automatic: true }
+        linebreaks: { 
+          automatic: true,  // 启用自动换行
+          width: 'container' // 根据容器宽度换行
+        }
       },
       options: {
         skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
         ignoreHtmlClass: 'tex2jax_ignore',
         processHtmlClass: 'tex2jax_process'
+      },
+      // 新增：处理渲染完成后的回调
+      startup: {
+        ready: () => {
+          MathJax.startup.defaultReady();
+          
+          // 公式渲染完成后，检查是否需要添加滚动容器
+          MathJax.startup.promise.then(() => {
+            // 方法1：为显示模式公式添加滚动容器
+            const displayContainers = document.querySelectorAll('mjx-container[display="true"]');
+            
+            displayContainers.forEach(container => {
+              // 检查是否需要滚动
+              const containerWidth = container.scrollWidth;
+              const parentWidth = container.parentElement.clientWidth;
+              
+              if (containerWidth > parentWidth * 0.95) {
+                // 创建滚动容器
+                const scrollWrapper = document.createElement('div');
+                scrollWrapper.className = 'mathjax-scroll-container scrollable';
+                scrollWrapper.style.minHeight = container.offsetHeight + 'px';
+                
+                // 包裹公式
+                container.parentNode.insertBefore(scrollWrapper, container);
+                scrollWrapper.appendChild(container);
+                
+                // 监听滚动事件显示/隐藏渐变提示
+                let scrollTimeout;
+                scrollWrapper.addEventListener('scroll', () => {
+                  scrollWrapper.classList.add('scrolling');
+                  clearTimeout(scrollTimeout);
+                  scrollTimeout = setTimeout(() => {
+                    scrollWrapper.classList.remove('scrolling');
+                  }, 100);
+                });
+              }
+            });
+            
+            // 方法2：调整行内公式防止溢出
+            const inlineContainers = document.querySelectorAll('mjx-container:not([display="true"])');
+            inlineContainers.forEach(container => {
+              const parent = container.parentElement;
+              if (container.offsetWidth > parent.offsetWidth * 0.9) {
+                container.style.maxWidth = '100%';
+                container.style.overflowX = 'auto';
+                container.style.display = 'inline-block';
+              }
+            });
+          });
+        }
       }
     };
     </script>
     <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
     </script>
     {% endif %}
-
-    <!-- 可在此添加其他全局JavaScript，如统计代码 -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script> -->
-    <!-- <script> ... </script> -->
+    
+    <!-- 主题切换脚本 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+        
+        // 检查本地存储的主题偏好
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // 设置初始主题
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        } else {
+            // 如果没有保存的主题，使用系统偏好
+            if (prefersDark) {
+                html.setAttribute('data-theme', 'dark');
+                updateThemeIcon('dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                updateThemeIcon('light');
+            }
+        }
+        
+        // 切换主题函数
+        function toggleTheme() {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+            
+            // 触发自定义事件，以便其他组件可以响应主题变化
+            document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: newTheme } }));
+        }
+        
+        // 更新主题图标
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+            } else {
+                themeIcon.textContent = '🌙';
+            }
+        }
+        
+        // 监听系统主题变化
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            // 只在用户没有手动设置主题时跟随系统变化
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+        });
+        
+        // 绑定点击事件
+        themeToggle.addEventListener('click', toggleTheme);
+        
+        // 添加键盘支持
+        themeToggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+        
+        // 监听主题变化，重新渲染 MathJax 公式（如果需要）
+        document.addEventListener('themechange', function(e) {
+            if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
+                // 等待一小段时间让 CSS 变量更新
+                setTimeout(() => {
+                    MathJax.typesetPromise();
+                }, 100);
+            }
+        });
+    });
+    </script>
 </body>
 </html>
