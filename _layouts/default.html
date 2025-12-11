@@ -707,14 +707,14 @@
             });
             
             // 方法2：调整行内公式防止溢出
-            const inlineContainers = document.querySelectorAll('mjx-container:not([display="true"])');
-            inlineContainers.forEach(container => {
-              const parent = container.parentElement;
-              if (container.offsetWidth > parent.offsetWidth * 0.9) {
-                container.style.maxWidth = '100%';
-                container.style.overflowX = 'auto';
-                container.style.display = 'inline-block';
-              }
+            // const inlineContainers = document.querySelectorAll('mjx-container:not([display="true"])');
+            // inlineContainers.forEach(container => {
+            //   const parent = container.parentElement;
+            //   if (container.offsetWidth > parent.offsetWidth * 0.9) {
+            //     container.style.maxWidth = '100%';
+            //     container.style.overflowX = 'auto';
+            //     container.style.display = 'inline-block';
+            //   }
             });
           });
         }
