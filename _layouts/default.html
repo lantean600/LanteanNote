@@ -645,6 +645,20 @@
     <!-- MathJax支持 -->
     {% if page.mathjax %}
     <script>
+    // 清除MathJax的本地存储设置（解决用户误操作保存设置的问题）
+    try {
+        localStorage.removeItem('MathJax-menu-Settings');
+        localStorage.removeItem('MathJax-menu-Menu');
+        // 清除所有MathJax相关的存储
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith('MathJax')) {
+                localStorage.removeItem(key);
+            }
+        });
+    } catch (e) {
+        // 忽略localStorage访问错误
+    }
+        
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
