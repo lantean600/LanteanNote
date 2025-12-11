@@ -358,9 +358,24 @@
         .footer-links a:hover {
             color: var(--primary-color);
         }
-
+        /* 为 MathJax 公式容器添加样式 */
+        .mathjax-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 1em 0;
+            margin: 1em 0;
+            -webkit-overflow-scrolling: touch;
+         }
+        
         /* 响应式设计：适配移动设备 */
         @media (max-width: 768px) {
+            .mathjax-container {
+                font-size: 0.9em;
+            }
+            mjx-container {
+                max-width: 100% !important;
+                overflow-x: auto !important;
+            }
             .container {
                 margin: 20px auto;
                 border-radius: 0;
@@ -389,6 +404,14 @@
                 --border-radius: 8px;
             }
         }
+        /* 滚动条样式 */
+           .mathjax-container::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .mathjax-container::-webkit-scrollbar-thumb {
+                background: #ccc;
+                border-radius: 3px;
     </style>
 </head>
 <body>
@@ -456,11 +479,16 @@
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        // 可选：自动给公式编号
-        // tags: 'ams'
       },
-      // 可选：提高在暗色背景下的显示效果
-      // svg: { fontCache: 'global' }
+      svg: {
+        fontCache: 'global',
+        linebreaks: { automatic: true }
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
     };
     </script>
     <script type="text/javascript" id="MathJax-script" async
