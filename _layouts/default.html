@@ -280,6 +280,17 @@
         .article-content {
             font-size: 1.1rem;
         }
+
+        /* 解决首页h1颜色问题 */
+        .article-content h1 {
+            color: var(--text-color);  /* 使用主题变量 */
+            font-size: 2.2rem;  /* 比 h2 稍大 */
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
         
         .article-content h2 {
             color: var(--primary-color);
