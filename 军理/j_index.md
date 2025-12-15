@@ -8,7 +8,6 @@ mathjax: true
 
 [军事理论速记.md](https://cdn.jsdelivr.net/gh/lantean600/LanteanNote/军理/军事理论速记.md)
 
----
 
 # 第一章 中国国防
 
