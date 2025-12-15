@@ -132,7 +132,7 @@
 
         /* 容器：居中并限制最大宽度 */
         .container {
-            max-width: 900px;
+            max-width: 1200px; /* 增加宽度以容纳目录 */
             margin: 40px auto;
             background-color: var(--background-color);
             border-radius: calc(var(--border-radius) * 1.5);
@@ -240,9 +240,17 @@
             transform: translateY(-2px);
         }
 
-        /* 主要内容区域 */
-        main {
+        /* 主要内容区域布局 */
+        .content-wrapper {
+            display: flex;
+            gap: 2rem;
             padding: 1.5rem 2.5rem 3rem;
+        }
+        
+        /* 文章区域 */
+        .article-content-wrapper {
+            flex: 1;
+            min-width: 0; /* 防止flexbox溢出 */
         }
         
         article {
@@ -406,6 +414,123 @@
             color: var(--primary-color);
         }
         
+        /* === 目录/大纲侧边栏样式 === */
+        .toc-sidebar {
+            width: 280px;
+            min-width: 280px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .toc-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        .toc-toggle:hover {
+            background-color: var(--code-bg);
+        }
+        
+        .toc-content {
+            font-size: 0.95rem;
+        }
+        
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        .toc-item {
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        
+        .toc-link {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+        
+        .toc-link:hover {
+            color: var(--primary-color);
+            background-color: var(--code-bg);
+            border-left-color: var(--primary-color);
+            transform: translateX(3px);
+        }
+        
+        .toc-link.active {
+            color: var(--primary-color);
+            font-weight: 600;
+            background-color: var(--code-bg);
+            border-left-color: var(--primary-color);
+        }
+        
+        .toc-sublist {
+            list-style: none;
+            padding-left: 1rem;
+            margin-top: 0.3rem;
+            border-left: 1px dashed var(--border-color);
+        }
+        
+        /* 目录滚动条样式 */
+        .toc-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .toc-sidebar::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+            border-radius: 4px;
+        }
+        
+        .toc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+        }
+        
+        .toc-sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+        
+        /* 当目录为空时隐藏 */
+        .toc-sidebar:empty {
+            display: none;
+        }
+        
         /* === MathJax 公式样式解决方案 === */
         
         /* 为 MathJax 显示模式公式添加滚动容器 */
@@ -518,6 +643,58 @@
         }
         
         /* 响应式调整 */
+        @media (max-width: 1100px) {
+            .toc-sidebar {
+                width: 240px;
+                min-width: 240px;
+            }
+            
+            .content-wrapper {
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            .toc-sidebar {
+                width: 100%;
+                min-width: 100%;
+                position: static;
+                max-height: 400px;
+                order: 1; /* 将目录放在文章前面 */
+                margin-bottom: 2rem;
+            }
+            
+            .article-content-wrapper {
+                order: 2;
+            }
+            
+            .toc-title {
+                cursor: pointer;
+                padding: 0.5rem 1rem;
+                background-color: var(--code-bg);
+                border-radius: var(--border-radius);
+            }
+            
+            .toc-toggle {
+                display: block;
+            }
+            
+            .toc-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            .toc-content.expanded {
+                max-height: 500px;
+                margin-top: 1rem;
+            }
+        }
+        
         @media (max-width: 768px) {
             .mathjax-scroll-container,
             mjx-container[display="true"] {
@@ -529,6 +706,7 @@
             .container {
                 margin: 20px auto;
                 border-radius: 0;
+                max-width: 100%;
             }
             
             header {
@@ -549,8 +727,8 @@
                 font-size: 0.9rem;
             }
             
-            main {
-                padding: 2rem 1.5rem;
+            .content-wrapper {
+                padding: 1.5rem;
             }
             
             .post-title {
@@ -582,6 +760,15 @@
             .mathjax-scroll-container::after {
                 display: none !important;
             }
+            
+            .toc-sidebar {
+                display: none;
+            }
+            
+            .content-wrapper {
+                display: block;
+                padding: 0;
+            }
         }
     </style>
 </head>
@@ -600,39 +787,48 @@
         </header>
 
         <nav class="main-nav">
+            <!-- 首页按钮 -->
             <a href="{{ '/' | relative_url }}">🏠 首页</a>
-            {% for p in site.pages %}
-                {% if p.title and p.url != '/' %}
-                    <a href="{{ p.url | relative_url }}" 
-                       {% if page.url == p.url %}class="active"{% endif %}>
-                        {{ p.title }}
-                    </a>
-                {% endif %}
-            {% endfor %}
+            
+            <!-- 后退按钮 -->
+            <a href="javascript:void(0);" onclick="window.history.back();" title="后退">← 后退</a>
+            
+            <!-- 前进按钮 -->
+            <a href="javascript:void(0);" onclick="window.history.forward();" title="前进">前进 →</a>
         </nav>
 
-        <main>
-            <article>
-                <div class="article-header">
-                    <h1 class="post-title">{{ page.title }}</h1>
-                    {% if page.date %}
-                        <div class="post-meta">
-                            <span>📅 {{ page.date | date: "%Y年%m月%d日" }}</span>
-                            {% if page.author %}
-                                <span>👤 {{ page.author }}</span>
-                            {% endif %}
-                            {% if page.categories %}
-                                <span>🏷️ {{ page.categories | join: ", " }}</span>
+        <div class="content-wrapper">
+            <!-- 文章内容区域 -->
+            <div class="article-content-wrapper">
+                <main>
+                    <article>
+                        <div class="article-header">
+                            <h1 class="post-title">{{ page.title }}</h1>
+                            {% if page.date %}
+                                <div class="post-meta">
+                                    <span>📅 {{ page.date | date: "%Y年%m月%d日" }}</span>
+                                    {% if page.author %}
+                                        <span>👤 {{ page.author }}</span>
+                                    {% endif %}
+                                    {% if page.categories %}
+                                        <span>🏷️ {{ page.categories | join: ", " }}</span>
+                                    {% endif %}
+                                </div>
                             {% endif %}
                         </div>
-                    {% endif %}
-                </div>
 
-                <div class="article-content">
-                    {{ content }}
-                </div>
-            </article>
-        </main>
+                        <div class="article-content">
+                            {{ content }}
+                        </div>
+                    </article>
+                </main>
+            </div>
+            
+            <!-- 目录/大纲侧边栏 -->
+            <aside class="toc-sidebar" id="tocSidebar">
+                <!-- 目录内容将通过JavaScript动态生成 -->
+            </aside>
+        </div>
 
         <footer>
             <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. 知识共享，共同成长。</p>
@@ -720,16 +916,8 @@
               }
             });
             
-            // 方法2：调整行内公式防止溢出
-            // const inlineContainers = document.querySelectorAll('mjx-container:not([display="true"])');
-            // inlineContainers.forEach(container => {
-            //   const parent = container.parentElement;
-            //   if (container.offsetWidth > parent.offsetWidth * 0.9) {
-            //     container.style.maxWidth = '100%';
-            //     container.style.overflowX = 'auto';
-            //     container.style.display = 'inline-block';
-            //   }
-            // });
+            // 生成文章目录
+            generateTOC();
           });
         }
       }
@@ -818,7 +1006,178 @@
                 }, 100);
             }
         });
+        
+        // 如果页面没有使用MathJax，直接生成目录
+        if (!{{ page.mathjax | default: false }}) {
+            setTimeout(generateTOC, 100);
+        }
     });
+    
+    // 生成文章目录函数
+    function generateTOC() {
+        const tocSidebar = document.getElementById('tocSidebar');
+        if (!tocSidebar) return;
+        
+        // 获取文章中的所有标题元素
+        const articleContent = document.querySelector('.article-content');
+        if (!articleContent) return;
+        
+        const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        if (headings.length === 0) {
+            tocSidebar.style.display = 'none';
+            return;
+        }
+        
+        // 创建目录结构
+        const tocTitle = document.createElement('div');
+        tocTitle.className = 'toc-title';
+        tocTitle.innerHTML = '📚 文章目录';
+        
+        // 添加移动端切换按钮
+        const toggleButton = document.createElement('button');
+        toggleButton.className = 'toc-toggle';
+        toggleButton.innerHTML = '▼';
+        toggleButton.setAttribute('aria-label', '展开/收起目录');
+        tocTitle.appendChild(toggleButton);
+        
+        const tocContent = document.createElement('div');
+        tocContent.className = 'toc-content';
+        
+        const tocList = document.createElement('ul');
+        tocList.className = 'toc-list';
+        
+        // 生成目录项
+        let previousLevel = 0;
+        let currentList = tocList;
+        const listStack = [tocList];
+        
+        headings.forEach((heading, index) => {
+            // 如果标题没有ID，为其生成一个
+            if (!heading.id) {
+                heading.id = 'heading-' + index;
+            }
+            
+            const level = parseInt(heading.tagName.charAt(1));
+            
+            // 调整列表层级
+            if (level > previousLevel) {
+                for (let i = previousLevel; i < level; i++) {
+                    const sublist = document.createElement('ul');
+                    sublist.className = 'toc-sublist';
+                    currentList.lastElementChild.appendChild(sublist);
+                    listStack.push(sublist);
+                    currentList = sublist;
+                }
+            } else if (level < previousLevel) {
+                for (let i = level; i < previousLevel; i++) {
+                    listStack.pop();
+                    currentList = listStack[listStack.length - 1];
+                }
+            }
+            
+            // 创建目录项
+            const listItem = document.createElement('li');
+            listItem.className = 'toc-item toc-level-' + level;
+            
+            const link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.className = 'toc-link';
+            link.textContent = heading.textContent;
+            
+            // 点击目录项滚动到对应位置
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetElement = document.getElementById(heading.id);
+                if (targetElement) {
+                    // 平滑滚动到目标位置
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // 更新URL哈希（可选）
+                    history.pushState(null, null, '#' + heading.id);
+                    
+                    // 添加激活状态
+                    document.querySelectorAll('.toc-link.active').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+            
+            listItem.appendChild(link);
+            currentList.appendChild(listItem);
+            previousLevel = level;
+        });
+        
+        // 添加目录内容到侧边栏
+        tocContent.appendChild(tocList);
+        tocSidebar.innerHTML = '';
+        tocSidebar.appendChild(tocTitle);
+        tocSidebar.appendChild(tocContent);
+        
+        // 移动端目录切换功能
+        toggleButton.addEventListener('click', function() {
+            const isExpanded = tocContent.classList.contains('expanded');
+            tocContent.classList.toggle('expanded');
+            this.innerHTML = isExpanded ? '▼' : '▲';
+        });
+        
+        // 自动展开移动端目录
+        if (window.innerWidth <= 992) {
+            tocContent.classList.add('expanded');
+            toggleButton.innerHTML = '▲';
+        }
+        
+        // 监听滚动，高亮当前阅读的章节
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                    
+                    if (tocLink) {
+                        // 移除所有激活状态
+                        document.querySelectorAll('.toc-link.active').forEach(el => {
+                            el.classList.remove('active');
+                        });
+                        
+                        // 添加当前激活状态
+                        tocLink.classList.add('active');
+                        
+                        // 如果目录内容被折叠，自动展开父级
+                        let parent = tocLink.parentElement;
+                        while (parent && !parent.classList.contains('toc-list')) {
+                            if (parent.classList.contains('toc-sublist')) {
+                                parent.style.display = 'block';
+                            }
+                            parent = parent.parentElement;
+                        }
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // 观察所有标题元素
+        headings.forEach(heading => {
+            observer.observe(heading);
+        });
+        
+        // 窗口大小变化时调整目录
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                tocContent.classList.add('expanded');
+                toggleButton.innerHTML = '▲';
+            }
+        });
+    }
     </script>
 </body>
 </html>
