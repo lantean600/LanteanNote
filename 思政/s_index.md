@@ -15,4 +15,4 @@ mathjax: true
 
 [【补充】《思修》课后习题和典型题（含考研真题）详解.pdf](https://cdn.jsdelivr.net/gh/lantean600/LanteanNote/思政/【补充】《思修》课后习题和典型题（含考研真题）详解.pdf)
 
-[思政课本笔记](https://cdn.jsdelivr.net/gh/lantean600/LanteanNote/releases/latest/download/23.pdf)
+[思政课本笔记.pdf](https://github.com/lantean600/LanteanNote/releases/latest/download/23.pdf)
