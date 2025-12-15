@@ -575,75 +575,131 @@
             display: none !important;
         }
         
-        /* 响应式调整 - 小屏幕优化 */
-        @media (max-width: 1100px) {
-            .toc-sidebar {
-                width: 240px;
-                min-width: 240px;
-                padding: 1rem; /* 进一步减少内边距 */
-            }
-            
-            .content-wrapper {
-                gap: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .content-wrapper {
-                flex-direction: column;
-            }
-            
-            .toc-sidebar {
-                width: 100%;
-                min-width: 100%;
-                position: static;
-                max-height: 300px; /* 限制高度 */
-                order: 1; /* 将目录放在文章前面 */
-                margin-bottom: 1.5rem;
-                padding: 1rem;
-            }
-            
-            .article-content-wrapper {
-                order: 2;
-            }
-            
-            .toc-title {
-                cursor: pointer;
-                padding: 0.4rem 0.8rem;
-                background-color: var(--code-bg);
-                border-radius: var(--border-radius);
-            }
-            
-            .toc-toggle {
-                display: block;
-            }
-            
-            .toc-content {
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease;
-            }
-            
+        /* === 移动端目录显示优化 === */
+@media (max-width: 992px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+    
+    .toc-sidebar {
+        width: 100%;
+        min-width: 100%;
+        position: static;
+        max-height: none; /* 移除固定高度限制 */
+        order: 1; /* 将目录放在文章前面 */
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .article-content-wrapper {
+        order: 2;
+    }
+    
+    .toc-title {
+        cursor: pointer;
+        padding: 0.4rem 0.8rem;
+        background-color: var(--code-bg);
+        border-radius: var(--border-radius);
+        margin-bottom: 0; /* 移除底部边距 */
+    }
+    
+    .toc-toggle {
+        display: block;
+    }
+    
+    .toc-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease; /* 增加过渡时间 */
+        padding: 0; /* 移除内边距 */
+        margin: 0;
+    }
+    
+    .toc-content.expanded {
+        max-height: 800px; /* 增加最大高度，确保能显示完整 */
+        margin-top: 0.8rem;
+        padding: 0.5rem 0; /* 添加垂直内边距 */
+        overflow-y: auto; /* 允许垂直滚动 */
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .toc-list {
+        max-height: 500px; /* 列表内部最大高度 */
+        overflow-y: auto; /* 允许列表内部滚动 */
+        padding-right: 5px; /* 为滚动条留出空间 */
+    }
+    
+    /* 移动端进一步减小字体 */
+    .toc-level-1 .toc-link { font-size: 0.9rem; }
+    .toc-level-2 .toc-link { font-size: 0.85rem; }
+    .toc-level-3 .toc-link { font-size: 0.8rem; }
+    .toc-level-4 .toc-link { font-size: 0.75rem; }
+    .toc-level-5 .toc-link { font-size: 0.7rem; }
+    .toc-level-6 .toc-link { font-size: 0.65rem; }
+    
+    /* 减少移动端的缩进 */
+    .toc-level-1 .toc-link { padding-left: 0.5rem; }
+    .toc-level-2 .toc-link { padding-left: 0.8rem; }
+    .toc-level-3 .toc-link { padding-left: 1.1rem; }
+    .toc-level-4 .toc-link { padding-left: 1.4rem; }
+    .toc-level-5 .toc-link { padding-left: 1.7rem; }
+    .toc-level-6 .toc-link { padding-left: 2rem; }
+    
+    /* 优化移动端目录滚动条 */
+    .toc-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .toc-list::-webkit-scrollbar-track {
+        background: var(--scrollbar-track);
+        border-radius: 2px;
+    }
+    
+    .toc-list::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb);
+        border-radius: 2px;
+    }
+    
+    .toc-content.expanded::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .toc-content.expanded::-webkit-scrollbar-track {
+        background: var(--scrollbar-track);
+        border-radius: 2px;
+    }
+    
+    .toc-content.expanded::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb);
+        border-radius: 2px;
+    }
+}
+
+        /* 进一步优化小屏幕设备 */
+        @media (max-width: 480px) {
             .toc-content.expanded {
-                max-height: 400px; /* 限制展开高度 */
-                margin-top: 0.8rem;
+                max-height: 600px; /* 小屏幕设备减少高度 */
             }
             
-            /* 移动端进一步减小字体 */
-            .toc-level-1 .toc-link { font-size: 0.9rem; }
-            .toc-level-2 .toc-link { font-size: 0.85rem; }
-            .toc-level-3 .toc-link { font-size: 0.8rem; }
-            .toc-level-4 .toc-link { font-size: 0.75rem; }
-            .toc-level-5 .toc-link { font-size: 0.7rem; }
-            .toc-level-6 .toc-link { font-size: 0.65rem; }
+            .toc-list {
+                max-height: 400px;
+            }
             
-            /* 减少移动端的缩进 */
-            .toc-level-1 .toc-link { padding-left: 0.5rem; }
-            .toc-level-2 .toc-link { padding-left: 1rem; }
-            .toc-level-3 .toc-link { padding-left: 1.2rem; }
-            .toc-level-4 .toc-link { padding-left: 1.4rem; }
-            .toc-level-5 .toc-link { padding-left: 1.6rem; }
+            /* 进一步减少缩进 */
+            .toc-level-1 .toc-link { padding-left: 0.3rem; }
+            .toc-level-2 .toc-link { padding-left: 0.6rem; }
+            .toc-level-3 .toc-link { padding-left: 0.9rem; }
+            .toc-level-4 .toc-link { padding-left: 1.2rem; }
+            .toc-level-5 .toc-link { padding-left: 1.5rem; }
             .toc-level-6 .toc-link { padding-left: 1.8rem; }
+            
+            /* 进一步减小字体 */
+            .toc-level-1 .toc-link { font-size: 0.85rem; }
+            .toc-level-2 .toc-link { font-size: 0.8rem; }
+            .toc-level-3 .toc-link { font-size: 0.75rem; }
+            .toc-level-4 .toc-link { font-size: 0.7rem; }
+            .toc-level-5 .toc-link { font-size: 0.65rem; }
+            .toc-level-6 .toc-link { font-size: 0.6rem; }
         }
         
         @media (max-width: 768px) {
@@ -930,11 +986,20 @@
                 tocContent.classList.toggle('expanded');
                 this.innerHTML = isExpanded ? '▼' : '▲';
             });
+
+            // 如果是移动端且展开状态，调整列表高度
+            if (window.innerWidth <= 992 && tocContent.classList.contains('expanded')) {
+                adjustMobileTOCHeight();
+                }
+            });
             
             // 自动展开移动端目录
             if (window.innerWidth <= 992) {
                 tocContent.classList.add('expanded');
                 tocToggle.innerHTML = '▲';
+
+                // 延迟调整高度，确保DOM已渲染
+                setTimeout(adjustMobileTOCHeight, 100);
             }
         }
         
@@ -971,11 +1036,57 @@
         
         // 窗口大小变化时调整目录
         window.addEventListener('resize', function() {
-            if (window.innerWidth > 992 && tocContent) {
-                tocContent.classList.remove('expanded');
-                if (tocToggle) tocToggle.innerHTML = '▼';
+            if (window.innerWidth > 992) {
+                if (tocContent) {
+                    tocContent.classList.remove('expanded');
+                }
+                if (tocToggle) {
+                    tocToggle.innerHTML = '▼';
+                }
+            } else {
+                // 切换到移动端时自动展开并调整高度
+                if (tocContent && !tocContent.classList.contains('expanded')) {
+                    tocContent.classList.add('expanded');
+                }
+                if (tocToggle) {
+                    tocToggle.innerHTML = '▲';
+                }
+                setTimeout(adjustMobileTOCHeight, 50);
             }
         });
+
+            // 移动端目录高度调整函数
+        function adjustMobileTOCHeight() {
+            if (window.innerWidth > 992) return;
+            
+            const tocContent = document.getElementById('tocContent');
+            const tocList = document.getElementById('tocList');
+            
+            if (!tocContent || !tocList) return;
+            
+            // 计算目录内容的实际高度
+            const itemHeight = 28; // 每个目录项的大致高度
+            const itemCount = headings.length;
+            const estimatedHeight = itemCount * itemHeight;
+            
+            // 限制最大高度为视口高度的80%
+            const maxViewportHeight = window.innerHeight * 0.8;
+            const finalHeight = Math.min(estimatedHeight, maxViewportHeight);
+            
+            // 设置列表最大高度
+            tocList.style.maxHeight = finalHeight + 'px';
+            
+            // 如果目录项很多，显示滚动提示
+            if (itemCount > 15) {
+                tocList.style.borderBottom = '1px solid var(--border-color)';
+            }
+        }
+    }
+    
+    // 初始调整高度
+    if (window.innerWidth <= 992) {
+        setTimeout(adjustMobileTOCHeight, 200);
+    }
     }
     </script>
 
