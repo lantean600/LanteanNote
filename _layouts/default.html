@@ -245,6 +245,7 @@
             display: flex;
             gap: 2rem;
             padding: 1.5rem 2.5rem 3rem;
+            min-height: 400px; /* 确保有足够高度 */
         }
         
         /* 文章区域 */
@@ -527,8 +528,8 @@
         }
         
         /* 当目录为空时隐藏 */
-        .toc-sidebar:empty {
-            display: none;
+        .toc-sidebar.empty {
+            display: none !important;
         }
         
         /* === MathJax 公式样式解决方案 === */
@@ -825,8 +826,17 @@
             </div>
             
             <!-- 目录/大纲侧边栏 -->
-            <aside class="toc-sidebar" id="tocSidebar">
+            <aside class="toc-sidebar empty" id="tocSidebar">
                 <!-- 目录内容将通过JavaScript动态生成 -->
+                <div class="toc-title">
+                    <span>📚 文章目录</span>
+                    <button class="toc-toggle" id="tocToggle">▼</button>
+                </div>
+                <div class="toc-content" id="tocContent">
+                    <ul class="toc-list" id="tocList">
+                        <!-- 目录项将动态生成 -->
+                    </ul>
+                </div>
             </aside>
         </div>
 
@@ -838,96 +848,6 @@
         </footer>
     </div>
 
-    <!-- MathJax支持 -->
-    {% if page.mathjax %}
-    <script>
-    // 清除MathJax的本地存储设置（解决用户误操作保存设置的问题）
-    try {
-        localStorage.removeItem('MathJax-menu-Settings');
-        localStorage.removeItem('MathJax-menu-Menu');
-        // 清除所有MathJax相关的存储
-        Object.keys(localStorage).forEach(key => {
-            if (key.startsWith('MathJax')) {
-                localStorage.removeItem(key);
-            }
-        });
-    } catch (e) {
-        // 忽略localStorage访问错误
-    }
-        
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      },
-      chtml: {
-        // 使用 CommonHTML 渲染器，在移动端性能更好
-        scale: 0.95,
-        minScale: 0.5,
-        matchFontHeight: false,
-        adaptiveCSS: true
-      },
-      svg: {
-        fontCache: 'global',
-        linebreaks: { 
-          automatic: true,  // 启用自动换行
-          width: 'container' // 根据容器宽度换行
-        }
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-        ignoreHtmlClass: 'tex2jax_ignore',
-        processHtmlClass: 'tex2jax_process'
-      },
-      // 新增：处理渲染完成后的回调
-      startup: {
-        ready: () => {
-          MathJax.startup.defaultReady();
-          
-          // 公式渲染完成后，检查是否需要添加滚动容器
-          MathJax.startup.promise.then(() => {
-            // 方法1：为显示模式公式添加滚动容器
-            const displayContainers = document.querySelectorAll('mjx-container[display="true"]');
-            
-            displayContainers.forEach(container => {
-              // 检查是否需要滚动
-              const containerWidth = container.scrollWidth;
-              const parentWidth = container.parentElement.clientWidth;
-              
-              if (containerWidth > parentWidth * 0.95) {
-                // 创建滚动容器
-                const scrollWrapper = document.createElement('div');
-                scrollWrapper.className = 'mathjax-scroll-container scrollable';
-                scrollWrapper.style.minHeight = container.offsetHeight + 'px';
-                
-                // 包裹公式
-                container.parentNode.insertBefore(scrollWrapper, container);
-                scrollWrapper.appendChild(container);
-                
-                // 监听滚动事件显示/隐藏渐变提示
-                let scrollTimeout;
-                scrollWrapper.addEventListener('scroll', () => {
-                  scrollWrapper.classList.add('scrolling');
-                  clearTimeout(scrollTimeout);
-                  scrollTimeout = setTimeout(() => {
-                    scrollWrapper.classList.remove('scrolling');
-                  }, 100);
-                });
-              }
-            });
-            
-            // 生成文章目录
-            generateTOC();
-          });
-        }
-      }
-    };
-    </script>
-    <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-    </script>
-    {% endif %}
-    
     <!-- 主题切换脚本 -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -997,56 +917,33 @@
             }
         });
         
-        // 监听主题变化，重新渲染 MathJax 公式（如果需要）
-        document.addEventListener('themechange', function(e) {
-            if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
-                // 等待一小段时间让 CSS 变量更新
-                setTimeout(() => {
-                    MathJax.typesetPromise();
-                }, 100);
-            }
-        });
-        
-        // 如果页面没有使用MathJax，直接生成目录
-        if (!{{ page.mathjax | default: false }}) {
-            setTimeout(generateTOC, 100);
-        }
+        // 生成文章目录
+        generateTOC();
     });
     
     // 生成文章目录函数
     function generateTOC() {
         const tocSidebar = document.getElementById('tocSidebar');
-        if (!tocSidebar) return;
+        const tocList = document.getElementById('tocList');
+        const tocToggle = document.getElementById('tocToggle');
+        const tocContent = document.getElementById('tocContent');
+        
+        if (!tocSidebar || !tocList) return;
         
         // 获取文章中的所有标题元素
         const articleContent = document.querySelector('.article-content');
-        if (!articleContent) return;
-        
-        const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        if (headings.length === 0) {
-            tocSidebar.style.display = 'none';
+        if (!articleContent) {
+            tocSidebar.classList.add('empty');
             return;
         }
         
-        // 创建目录结构
-        const tocTitle = document.createElement('div');
-        tocTitle.className = 'toc-title';
-        tocTitle.innerHTML = '📚 文章目录';
+        const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        if (headings.length === 0) {
+            tocSidebar.classList.add('empty');
+            return;
+        }
         
-        // 添加移动端切换按钮
-        const toggleButton = document.createElement('button');
-        toggleButton.className = 'toc-toggle';
-        toggleButton.innerHTML = '▼';
-        toggleButton.setAttribute('aria-label', '展开/收起目录');
-        tocTitle.appendChild(toggleButton);
-        
-        const tocContent = document.createElement('div');
-        tocContent.className = 'toc-content';
-        
-        const tocList = document.createElement('ul');
-        tocList.className = 'toc-list';
-        
-        // 生成目录项
+        // 生成目录结构
         let previousLevel = 0;
         let currentList = tocList;
         const listStack = [tocList];
@@ -1054,7 +951,12 @@
         headings.forEach((heading, index) => {
             // 如果标题没有ID，为其生成一个
             if (!heading.id) {
-                heading.id = 'heading-' + index;
+                // 创建一个简单的ID：基于标题文本和时间戳
+                const headingText = heading.textContent.trim().toLowerCase()
+                    .replace(/[^\w\s-]/g, '') // 移除特殊字符
+                    .replace(/\s+/g, '-')     // 空格替换为连字符
+                    .replace(/--+/g, '-');    // 移除多余的连字符
+                heading.id = headingText || 'heading-' + Date.now() + '-' + index;
             }
             
             const level = parseInt(heading.tagName.charAt(1));
@@ -1064,7 +966,14 @@
                 for (let i = previousLevel; i < level; i++) {
                     const sublist = document.createElement('ul');
                     sublist.className = 'toc-sublist';
-                    currentList.lastElementChild.appendChild(sublist);
+                    // 找到最后一个li元素来添加子列表
+                    const lastItem = currentList.lastElementChild;
+                    if (lastItem && lastItem.tagName === 'LI') {
+                        lastItem.appendChild(sublist);
+                    } else {
+                        // 如果没有li元素，直接添加到当前列表
+                        currentList.appendChild(sublist);
+                    }
                     listStack.push(sublist);
                     currentList = sublist;
                 }
@@ -1111,23 +1020,22 @@
             previousLevel = level;
         });
         
-        // 添加目录内容到侧边栏
-        tocContent.appendChild(tocList);
-        tocSidebar.innerHTML = '';
-        tocSidebar.appendChild(tocTitle);
-        tocSidebar.appendChild(tocContent);
+        // 显示目录侧边栏
+        tocSidebar.classList.remove('empty');
         
         // 移动端目录切换功能
-        toggleButton.addEventListener('click', function() {
-            const isExpanded = tocContent.classList.contains('expanded');
-            tocContent.classList.toggle('expanded');
-            this.innerHTML = isExpanded ? '▼' : '▲';
-        });
-        
-        // 自动展开移动端目录
-        if (window.innerWidth <= 992) {
-            tocContent.classList.add('expanded');
-            toggleButton.innerHTML = '▲';
+        if (tocToggle && tocContent) {
+            tocToggle.addEventListener('click', function() {
+                const isExpanded = tocContent.classList.contains('expanded');
+                tocContent.classList.toggle('expanded');
+                this.innerHTML = isExpanded ? '▼' : '▲';
+            });
+            
+            // 自动展开移动端目录
+            if (window.innerWidth <= 992) {
+                tocContent.classList.add('expanded');
+                tocToggle.innerHTML = '▲';
+            }
         }
         
         // 监听滚动，高亮当前阅读的章节
@@ -1151,15 +1059,6 @@
                         
                         // 添加当前激活状态
                         tocLink.classList.add('active');
-                        
-                        // 如果目录内容被折叠，自动展开父级
-                        let parent = tocLink.parentElement;
-                        while (parent && !parent.classList.contains('toc-list')) {
-                            if (parent.classList.contains('toc-sublist')) {
-                                parent.style.display = 'block';
-                            }
-                            parent = parent.parentElement;
-                        }
                     }
                 }
             });
@@ -1172,12 +1071,71 @@
         
         // 窗口大小变化时调整目录
         window.addEventListener('resize', function() {
-            if (window.innerWidth > 992) {
-                tocContent.classList.add('expanded');
-                toggleButton.innerHTML = '▲';
+            if (window.innerWidth > 992 && tocContent) {
+                tocContent.classList.remove('expanded');
+                if (tocToggle) tocToggle.innerHTML = '▼';
             }
         });
     }
     </script>
+
+    <!-- MathJax支持 -->
+    {% if page.mathjax %}
+    <script>
+    // 清除MathJax的本地存储设置（解决用户误操作保存设置的问题）
+    try {
+        localStorage.removeItem('MathJax-menu-Settings');
+        localStorage.removeItem('MathJax-menu-Menu');
+        // 清除所有MathJax相关的存储
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith('MathJax')) {
+                localStorage.removeItem(key);
+            }
+        });
+    } catch (e) {
+        // 忽略localStorage访问错误
+    }
+        
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      },
+      chtml: {
+        // 使用 CommonHTML 渲染器，在移动端性能更好
+        scale: 0.95,
+        minScale: 0.5,
+        matchFontHeight: false,
+        adaptiveCSS: true
+      },
+      svg: {
+        fontCache: 'global',
+        linebreaks: { 
+          automatic: true,  // 启用自动换行
+          width: 'container' // 根据容器宽度换行
+        }
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      },
+      // 新增：处理渲染完成后的回调
+      startup: {
+        ready: () => {
+          MathJax.startup.defaultReady();
+          
+          // 公式渲染完成后，重新生成目录（因为公式可能会改变标题位置）
+          MathJax.startup.promise.then(() => {
+            generateTOC();
+          });
+        }
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+    {% endif %}
 </body>
 </html>
