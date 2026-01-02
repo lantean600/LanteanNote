@@ -1,5 +1,5 @@
 ---
-layout: NewYear
+layout: default
 title: "欢迎来到我的主页"
 ---
 
