@@ -1,3 +1,9 @@
+---
+layout: default
+title: "有理函数的积分"
+mathjax: true
+---
+
 relu函数的层实现，一定程度上缓解梯度消失问题。
 
 ```py
