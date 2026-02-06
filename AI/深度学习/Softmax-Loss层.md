@@ -1,3 +1,9 @@
+---
+layout: default
+title: "有理函数的积分"
+mathjax: true
+---
+
 结合softmax和交叉熵损失，合并计算，简化梯度计算，提高计算效率。
 
 ```py
