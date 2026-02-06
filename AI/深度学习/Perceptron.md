@@ -1,3 +1,9 @@
+---
+layout: default
+title: "有理函数的积分"
+mathjax: true
+---
+
 对输入数据进行线性二分类，只能解决线性可分问题。
 
 ```py
