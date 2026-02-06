@@ -10,8 +10,8 @@ mathjax: true
 class SoftmaxWithLoss:
     def __init__(self):
         self.loss = None
-        self.y = None # softmaxの出力
-        self.t = None # 教師データ
+        self.y = None 
+        self.t = None 
 
     def forward(self, x, t):
         self.t = t
