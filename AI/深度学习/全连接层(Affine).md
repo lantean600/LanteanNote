@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "有理函数的积分"
+title: "全连接层(Affine)"
 mathjax: true
 ---
 
