@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "有理函数的积分"
+title: "池化层(Pooling)"
 mathjax: true
 ---
 
