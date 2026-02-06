@@ -4,6 +4,9 @@ title: "Perceptron"
 mathjax: true
 ---
 
+<img width="800" height="307" alt="image" src="https://github.com/user-attachments/assets/eea2fc53-ceac-429a-8eb0-02ec9f922ea6" />
+
+
 对输入数据进行线性二分类，只能解决线性可分问题。
 
 ```py
