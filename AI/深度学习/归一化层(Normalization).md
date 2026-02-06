@@ -1,3 +1,9 @@
+---
+layout: default
+title: "有理函数的积分"
+mathjax: true
+---
+
 以进行学习时的 mini-batch 为单位，进行使数据分布的均值为 0、方差为 1 的正规化。
 
 ```py
