@@ -4,6 +4,9 @@ title: "CNN"
 mathjax: true
 ---
 
+<img width="1574" height="374" alt="image" src="https://github.com/user-attachments/assets/d9cbdcea-ad11-49dd-87c4-2ef045a2f64f" />
+
+
 CNN利用了数据（图像）的各个维度的相关性（输入数据并没有被展平为一维），能够识别数据的高级特征。同时借助池化层加速计算，使网络具有一定的平移不变性。
 
 ```py
