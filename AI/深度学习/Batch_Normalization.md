@@ -12,4 +12,4 @@ mathjax: true
 • 不那么依赖初始值（对于初始值不用那么神经质）。 
 • 抑制过拟合（降低 Dropout 等的必要性）。 
 
-代码实现见[[归一化层(Normalization)]] 。
+代码实现见[归一化层(Normalization)](归一化层.md) 。
