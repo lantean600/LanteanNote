@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "欢迎来到我的主页"
+title: "主页"
 ---
 
 # 深度学习
