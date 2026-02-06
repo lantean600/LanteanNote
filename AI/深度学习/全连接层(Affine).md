@@ -1,3 +1,9 @@
+---
+layout: default
+title: "有理函数的积分"
+mathjax: true
+---
+
 神经网络基本零件，用于拟合数据
 
 ```py
