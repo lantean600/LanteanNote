@@ -2,6 +2,8 @@
 layout: default
 title: "主页"
 ---
+# python
+- [anki笔记](Anki_Export_Python/python1.html)
 
 # 深度学习
 ## 鱼书笔记
